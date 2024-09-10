@@ -1,4 +1,6 @@
 import React, { useState,useEffect } from 'react';
+import LoginPage from './pages/loginPage';
+import GptsListPage from './pages/gptsListPage';
 
 type Item = {
   name: string;
@@ -7,24 +9,23 @@ type Item = {
 
 function App() {
   const [items, setItems ] = useState<Item[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
 
-  useEffect(()=> {
-    fetch("http://localhost:8080/api/items")
-    .then(res => res.json())
-    .then(data => setItems(data));
-  },[]);
+  useEffect(() => {
+    if (isLoggedIn) {
+      fetch("http://localhost:8080/api/items")
+        .then(res => res.json())
+        .then(data => setItems(data));
+    }
+  }, [isLoggedIn]);
+
+  const handleLogin = () => {
+    setIsLoggedIn(true);
+  };
 
   return (
     <div className="App">
-      <header className="App-header">
-      <ul>
-          {items.map((item, index) => (
-            <li key={index}>
-              {item.name} - ${item.price}
-            </li>
-          ))}
-        </ul>
-      </header>
+      {isLoggedIn ? <GptsListPage items={items}/>: <LoginPage onLogin={handleLogin}/>}
     </div>
   );
 }
