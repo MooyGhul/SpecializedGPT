@@ -12,6 +12,13 @@ type Item = {
 function App() {
   const [items, setItems ] = useState<Item[]>([]);
 
+  useEffect(() => {
+      fetch("http://localhost:8080/api/items")
+        .then(res => res.json())
+        .then(data => setItems(data));
+    }
+  ,[]);
+
   return (
     <div className="App">
       <Routes>
