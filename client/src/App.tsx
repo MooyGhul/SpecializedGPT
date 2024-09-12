@@ -1,4 +1,8 @@
 import React, { useState,useEffect } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
+import GptsListPage from './pages/GptsListPage';
+import ProtectedRoute from './components/ProtectedRoute';
+import GptDetailPage from './pages/GptDetailPage';
 
 type Item = {
   name: string;
@@ -8,23 +12,20 @@ type Item = {
 function App() {
   const [items, setItems ] = useState<Item[]>([]);
 
-  useEffect(()=> {
-    fetch("http://localhost:8080/api/items")
-    .then(res => res.json())
-    .then(data => setItems(data));
-  },[]);
+  useEffect(() => {
+      fetch("http://localhost:8080/api/items")
+        .then(res => res.json())
+        .then(data => setItems(data));
+    }
+  ,[]);
 
   return (
     <div className="App">
-      <header className="App-header">
-      <ul>
-          {items.map((item, index) => (
-            <li key={index}>
-              {item.name} - ${item.price}
-            </li>
-          ))}
-        </ul>
-      </header>
+      <Routes>
+        <Route path="/homepage" element={<GptsListPage items={items} />} />
+        <Route path="/homepage/:gptId" element={<GptDetailPage />} />
+        <Route path="/" element={<Navigate to="/homepage"/>} />
+      </Routes>
     </div>
   );
 }
