@@ -1,8 +1,9 @@
 import React, { useState,useEffect } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import GptsListPage from './pages/GptsListPage';
+import GptsListPage from './pages/gptsListPage';
 import ProtectedRoute from './components/ProtectedRoute';
 import GptDetailPage from './pages/GptDetailPage';
+import LoginSignup from './pages/LoginSignup';
 
 type Item = {
   name: string;
@@ -25,6 +26,7 @@ function App() {
         <Route path="/homepage" element={<GptsListPage items={items} />} />
         <Route path="/homepage/:gptId" element={<GptDetailPage />} />
         <Route path="/" element={<Navigate to="/homepage"/>} />
+        <Route path="/homepage/LoginSignup" element={<LoginSignup/>} />
       </Routes>
     </div>
   );
