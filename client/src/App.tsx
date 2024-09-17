@@ -7,7 +7,7 @@ import LoginSignup from './pages/LoginSignup';
 
 type Item = {
   name: string;
-  price: number;
+  price: string;
 };
 
 function App() {
