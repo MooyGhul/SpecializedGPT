@@ -6,7 +6,7 @@ import GptDetailPage from './pages/GptDetailPage';
 
 type Item = {
   name: string;
-  price: number;
+  price: string;
 };
 
 function App() {
